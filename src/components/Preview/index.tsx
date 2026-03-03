@@ -1,49 +1,40 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { compile } from './compiler'
 import { PlaygroundContext } from '../../ReactPlayground/PlaygroundContext'
-import Editor from '../CodeEditor/Editor'
 import iframeRaw from './iframe.html?raw'
 import { IMPORT_MAP_FILE_NAME } from '../../ReactPlayground/files'
+import styles from './index.module.scss'
 
-
-export default function Perview() {
+export default function Preview() {
   const { files } = useContext(PlaygroundContext)
-  // const code = compile(files) as string // main.tsx
   const [code, setCode] = useState('')
-
-  const getIframeUrl = () => {
-    const res = iframeRaw.replace(
-      '<script type="importmap"></script>',
-      `<script type="importmap">${files[IMPORT_MAP_FILE_NAME].value}</script>`
-    ).replace(
-      '<script type="module"></script>',
-      `<script type="module">${code}</script>`
-    )
-    return URL.createObjectURL(new Blob([res], { type: 'text/html' }))
-  }
-
-  const [iframeUrl, setIframeUrl] = useState(getIframeUrl())
 
   useEffect(() => {
     setCode(compile(files) as string)
   }, [files])
 
-  useEffect(() => {
-    setIframeUrl(getIframeUrl())
-  }, [code])
+  const iframeUrl = useMemo(() => {
+    return iframeRaw
+      .replace(
+        '<script type="importmap"></script>',
+        `<script type="importmap">${files[IMPORT_MAP_FILE_NAME].value}</script>`,
+      )
+      .replace('<script type="module"></script>', `<script type="module">${code}</script>`)
+  }, [code, files])
 
   return (
-    <div style={{ height: '100%' }}>
-      <iframe
-        src = {iframeUrl}
-        style={{ width: '100%', height: '100%', border: 'null'}}
-      />
-
-      {/* <Editor file={{
-        name: 'preview',
-        language: 'javascript',
-        value: code
-      }} /> */}
+    <div className={styles['preview-shell']}>
+      <div className={styles['preview-bar']}>
+        <div className={styles.dots} aria-hidden="true">
+          <span className={`${styles.dot} ${styles['dot-red']}`} />
+          <span className={`${styles.dot} ${styles['dot-yellow']}`} />
+          <span className={`${styles.dot} ${styles['dot-green']}`} />
+        </div>
+        <span className={styles.title}>Live Preview</span>
+      </div>
+      <div className={styles['preview-body']}>
+        <iframe title="React playground preview" srcDoc={iframeUrl} className={styles.frame} />
+      </div>
     </div>
   )
 }

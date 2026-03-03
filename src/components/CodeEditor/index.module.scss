@@ -1,0 +1,19 @@
+.editor-shell {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.76));
+}
+
+.editor-body {
+  flex: 1;
+  min-height: 0;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.editor-body :global(.monaco-editor),
+.editor-body :global(.monaco-editor-background),
+.editor-body :global(.margin) {
+  background-color: #111827 !important;
+}

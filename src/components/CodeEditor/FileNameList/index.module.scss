@@ -1,56 +1,124 @@
 .tabs {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 0.34rem;
+  min-height: 48px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.42rem 0.58rem;
+  border-bottom: 1px solid var(--color-border);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.97), rgba(15, 23, 42, 0.78)),
+    radial-gradient(95% 120% at 0% 0%, rgba(34, 197, 94, 0.12), transparent);
 
-    height: 38px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    border-bottom: 1px solid #ddd;
-    box-sizing: border-box;
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
 
-    color: var(--text);
-    background-color: var(--bg);
+  &::-webkit-scrollbar-track {
+    background: rgba(51, 65, 85, 0.18);
+  }
 
-    &::-webkit-scrollbar {
-        height: 1px;
-    }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.38);
+    border-radius: 999px;
+  }
+}
 
-    &::-webkit-scrollbar-track {
-        background-color: #ddd;
-    }
+.tab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  flex: 0 0 auto;
+  max-width: 240px;
+  padding: 0.42rem 0.66rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
 
-    &::-webkit-scrollbar-thumb {
-        background-color: #ddd;
-    }
+  &:hover {
+    color: var(--color-text);
+    background: rgba(51, 65, 85, 0.45);
+  }
 
-    .tab-item {
-        display: inline-flex;
-        padding: 8px 10px 6px;
-        font-size: 13px;
-        line-height: 20px;
-        cursor: pointer;
-        align-items: center;
-        border-bottom: 3px solid transparent;
+  &.actived {
+    color: var(--color-text);
+    border-color: var(--color-accent-weak);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(51, 65, 85, 0.25));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
 
-        &.actived {
-            color: skyblue;
-            border-bottom: 3px solid skyblue;
-        }
+  &:first-child .close-btn {
+    display: none;
+  }
+}
 
-        &:first-child {
-            cursor: text;
-        }
-    }
+.tab-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.79rem;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .tabs-item-input {
-    width: 90px;
-    padding: 4px 0 4px 10px;
-    font-size: 13px;
+  width: 140px;
+  padding: 0.28rem 0.52rem;
+  border: 1px solid var(--color-accent-weak);
+  border-radius: 8px;
+  color: var(--color-text);
+  background: rgba(15, 23, 42, 0.75);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
 
-    color: #444;
-    background-color: #ddd;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    outline: none;
+.close-btn {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-base-200);
+  background: transparent;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease;
+
+  &:hover {
+    color: #f8fafc;
+    background: rgba(239, 68, 68, 0.28);
+  }
+}
+
+.add {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: rgba(51, 65, 85, 0.44);
+  color: #bbf7d0;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: rgba(34, 197, 94, 0.45);
+    background: rgba(34, 197, 94, 0.2);
+  }
+}
+
+@media (max-width: 720px) {
+  .tabs-item-input {
+    width: 104px;
+  }
 }

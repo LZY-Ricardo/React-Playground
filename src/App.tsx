@@ -4,10 +4,10 @@ import { PlaygroundProvider } from './ReactPlayground/PlaygroundContext'
 
 export default function App() {
   return (
-    <div>
-      <PlaygroundProvider>
+    <PlaygroundProvider>
+      <div className="app-shell">
         <ReactPlayground />
-      </PlaygroundProvider>
-    </div>
+      </div>
+    </PlaygroundProvider>
   )
 }
